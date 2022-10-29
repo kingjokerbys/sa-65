@@ -339,7 +339,7 @@ function SymptomCreate() {
           <Grid item xs={12}>
             <Button
               component={RouterLink}
-              to="/symptomsystems"
+              to="/symptoms"
               variant="contained"
             >
               กลับ

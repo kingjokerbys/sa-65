@@ -3,6 +3,7 @@ import { BookingInterface } from "./IBooking";
 import { DepartmentInterface } from "./IDepartment";
 import { DoctorsInterface } from "./IDoctor";
 import { LocationInterface } from "./ILocation";
+import { ScheduleInterface } from "./ISchedule";
 
 export interface AppointmentInterface {
   ID:           number,
@@ -21,4 +22,7 @@ export interface AppointmentInterface {
   
   LocationID:  number,
   Location:    LocationInterface,
+
+  ScheduleID:  number,
+  Schedule:    ScheduleInterface,
 }

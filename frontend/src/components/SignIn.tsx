@@ -8,6 +8,7 @@ import Checkbox from "@mui/material/Checkbox";
 import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
+import { Link as RouterLink } from "react-router-dom";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Snackbar from "@mui/material/Snackbar";
@@ -155,8 +156,19 @@ function SignIn() {
                 sx={{ mt: 3, mb: 2 }}
                 onClick={submit}
               >
-                Sign In
+                เข้าสู่ระบบ
               </Button>
+
+              
+              {/* <Button
+                onClick={component={}
+                color="success"
+                fullWidth
+                variant="contained"
+                sx={{ mt: 3, mb: 2 }}
+              >
+                ผู้ใช้ใหม่
+              </Button> */}
             </Box>
           </Box>
         </Grid>

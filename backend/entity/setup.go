@@ -63,7 +63,7 @@ func SetupDatabase() {
 		Email: "panadsada@gmail.com",
 		Tel: 		"0930000124",
 		Password: string(password),
-		Role:     "doctor",
+		Role:     "admin",
 	})
 
 	db.Model(&User{}).Create(&User{

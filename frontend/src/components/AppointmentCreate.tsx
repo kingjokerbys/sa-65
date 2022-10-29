@@ -20,6 +20,7 @@ import { DepartmentInterface } from "../models/IDepartment";
 import { DoctorsInterface } from "../models/IDoctor";
 import { BookingInterface } from "../models/IBooking";
 import { LocationInterface } from "../models/ILocation";
+import { ScheduleInterface } from "../models/ISchedule";
 import { AppointmentInterface } from "../models/IAppointment";
 
 import { FormHelperText, InputLabel } from "@material-ui/core";
@@ -34,6 +35,7 @@ function AppointmentCreate() {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [users, setUsers] = useState<UserInterface>();
   const [departments, setDepartments] = useState<DepartmentInterface[]>([]);
+  const [schedules, setSchedules] = useState<ScheduleInterface[]>([]);
   const [booking, setBookings] = useState<BookingInterface[]>([]);
   const [doctors, setDoctors] = useState<DoctorsInterface[]>([]);
   const [locations, setLocations] = useState<LocationInterface[]>([]);
@@ -125,6 +127,18 @@ function AppointmentCreate() {
       });
   };
 
+  const getSchedule = async () => {
+    fetch(`${apiUrl}/schedules`, requestOptions)
+      .then((response) => response.json())
+      .then((res) => {
+        if (res.data) {
+          setSchedules(res.data);
+        } else {
+          console.log("else");
+        }
+      });
+  };
+
   const getDoctor = async () => {
     fetch(`${apiUrl}/doctors`, requestOptions)
       .then((response) => response.json())
@@ -166,6 +180,7 @@ function AppointmentCreate() {
   useEffect(() => {
     getUsers();
     getDepartment();
+    getSchedule();
     getDoctor();
     getLocation();
     getBooking();
@@ -180,6 +195,7 @@ function AppointmentCreate() {
     let data = {
         UserID: convertType(appointments.UserID),
         DepartmentID: convertType(appointments.DepartmentID),
+        ScheduleID: convertType(appointments.ScheduleID),
         DoctorID: convertType(appointments.DoctorID),
         LocationID: convertType(appointments.LocationID),
         BookingID: convertType(appointments.BookingID),
@@ -302,19 +318,19 @@ function AppointmentCreate() {
               <p>เลือกแผนกทางการแพทย์</p>
               <Select
                 native
-                value={appointments.DepartmentID + ""}
+                value={appointments.ScheduleID + ""}
                 onChange={handleChange}
                 inputProps={{
-                  name: "DepartmentID",
+                  name: "ScheduleID",
                 }}
                 
               >
                 <option aria-label="None" value="">
                 </option>
-                {departments.map((item: DepartmentInterface) => (
-                  <option value={item.ID} key={item.ID}>
-                    {item.Name}
-                  </option>
+                {schedules.map((item: ScheduleInterface) => (
+                <option value={item.ID} key={item.ID}>
+                    {item.Department.Name}
+                </option>
                 ))}
               </Select>
             </FormControl>
@@ -322,48 +338,70 @@ function AppointmentCreate() {
 
           <Grid item xs={6}>
             <FormControl fullWidth variant="outlined">
-              <p>เลือกอาการป่วย</p>
+              <p>เลือกแพทย์</p>
               <Select
                 native
-                value={appointments.DoctorID + ""}
+                value={appointments.ScheduleID + ""}
                 onChange={handleChange}
                 inputProps={{
-                  name: "DoctorID",
+                  name: "ScheduleID",
                 }}
               >
                 <option aria-label="None" value="">
                 </option>
-                {doctors.map((item: DoctorsInterface) => (
-                  <option value={item.ID} key={item.ID}>
-                    {item.Name}
-                  </option>
+                {schedules.map((item: ScheduleInterface) => (
+                <option value={item.ID} key={item.ID}>
+                    {item.Doctor.Name}
+                </option>
                 ))}
               </Select>
             </FormControl>
           </Grid>
-
 
           <Grid item xs={6}>
             <FormControl fullWidth variant="outlined">
-              <p>เลือกอาการป่วย</p>
+              <p>เลือกแพทย์</p>
               <Select
                 native
-                value={appointments.LocationID + ""}
+                value={appointments.ScheduleID + ""}
                 onChange={handleChange}
                 inputProps={{
-                  name: "LocationID",
+                  name: "ScheduleID",
                 }}
               >
                 <option aria-label="None" value="">
                 </option>
-                {locations.map((item: LocationInterface) => (
-                  <option value={item.ID} key={item.ID}>
-                    {item.Name}
-                  </option>
+                {schedules.map((item: ScheduleInterface) => (
+                <option value={item.ID} key={item.ID}>
+                    {item.Location.Name}
+                </option>
                 ))}
               </Select>
             </FormControl>
           </Grid>
+
+
+          {/* <Grid item xs={6}>
+            <FormControl fullWidth variant="outlined">
+              <p>เลือกสถานที่</p>
+              <Select
+                native
+                value={appointments.ScheduleID + ""}
+                onChange={handleChange}
+                inputProps={{
+                  name: "ScheduleID",
+                }}
+              >
+                <option aria-label="None" value="">
+                </option>
+                {locations.map((item: ScheduleInterface) => (
+                  <option value={item.ID} key={item.ID}>
+                    {item.Location.Name}
+                  </option>
+                ))}
+              </Select>
+            </FormControl>
+          </Grid> */}
           
           
           <Grid item xs={12}>

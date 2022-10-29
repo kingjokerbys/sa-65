@@ -33,7 +33,7 @@ type Department struct{
 	Symptoms			[]Symptom			`gorm:"foreignKey:DepartmentID"`
 	SymptomSystems		[]SymptomSystem 	`gorm:"foreignKey:DepartmentID"`
 	Bookings			[]Booking 			`gorm:"foreignKey:DepartmentID"`
-	Appointments []Appointment `gorm:"foreignKey:DepartmentID"`
+	Appointments 		[]Appointment 		`gorm:"foreignKey:DepartmentID"`
 
 }
 
@@ -201,6 +201,9 @@ type Schedule struct {
 	DepartmentID *uint
 	// ข้อมูลของ Authorities เมื่อ join ตาราง
 	Department Department 
+
+	Appointments []Appointment `gorm:"foreignKey:ScheduleID"`
+
 }
 
 type Doctor struct {
@@ -253,4 +256,7 @@ type Appointment struct {
 
 	LocationID *uint //  LocationID เป็น FK
 	Location   Location
+
+	ScheduleID *uint //  LocationID เป็น FK
+	Schedule   Schedule
 }

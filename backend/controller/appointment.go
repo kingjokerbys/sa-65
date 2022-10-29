@@ -33,10 +33,10 @@ func CreateAppointment(c *gin.Context) {
    }
 
 	// 10: ค้นหา department ด้วย id
-	if tx := entity.DB().Where("id = ?", appointment.DepartmentID).First(&department); tx.RowsAffected == 0 {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "department not found"})
-		return
-	}
+	// if tx := entity.DB().Where("id = ?", appointment.DepartmentID).First(&department); tx.RowsAffected == 0 {
+	// 	c.JSON(http.StatusBadRequest, gin.H{"error": "department not found"})
+	// 	return
+	// }
 
 	// 11: ค้นหา doctor ด้วย id
 	if tx := entity.DB().Where("id = ?", appointment.DoctorID).First(&doctor); tx.RowsAffected == 0 {
@@ -86,7 +86,7 @@ func GetAppointment(c *gin.Context) {
 // GET /appointments
 func ListAppointments(c *gin.Context) {
 	var appointments []entity.Appointment
-	if err := entity.DB().Preload("Booking").Preload("Booking.User").Preload("Department").Preload("Doctor").Preload("Location").Raw("SELECT * FROM appointments").Find(&appointments).Error; err != nil {
+	if err := entity.DB().Preload("Schedule").Preload("Booking").Preload("Booking.User").Preload("Department").Preload("Doctor").Preload("Location").Raw("SELECT * FROM appointments").Find(&appointments).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}

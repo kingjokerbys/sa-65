@@ -30,7 +30,7 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(props,
 function BookingCreate() {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [users, setUsers] = useState<UserInterface>();
-  const [departments, setDepartments] = useState<DepartmentInterface[]>([]);
+  const [departments, setDepartments] = useState<DepartmentInterface>();
   const [symptoms, setSymptoms] = useState<SymptomInterface[]>([]);
   const [booking, setBooking] = useState<Partial<BookingInterface>>({});
   const [detail, setDetail] = useState<String>("");
@@ -66,9 +66,9 @@ function BookingCreate() {
     });
     console.log(event.target.value);
     
-    // if(name == "SymptomID"){
-    //   getDepartment(event.target.value)
-    // }
+    if(name == "SymptomID"){
+      getDepartment(event.target.value)
+    }
     
   };
 
@@ -109,35 +109,35 @@ function BookingCreate() {
       });
   };
 
-  const getDepartment = async () => {
-    fetch(`${apiUrl}/departments`, requestOptions)
-      .then((response) => response.json())
-      .then((res) => {
-        if (res.data) {
-          setDepartments(res.data);
-        } else {
-          console.log("else");
-        }
-      });
-  };
-
-  // const getDepartment = async (id : String | unknown) => {
-  //   fetch(`${apiUrl}/department/symptom/${id}`, requestOptions)
+  // const getDepartment = async () => {
+  //   fetch(`${apiUrl}/departments`, requestOptions)
   //     .then((response) => response.json())
   //     .then((res) => {
-  //       booking.DepartmentID = res.data.ID
-  //       console.log(booking.DepartmentID);
   //       if (res.data) {
-  //           setDepartments(res.data);
+  //         setDepartments(res.data);
   //       } else {
   //         console.log("else");
   //       }
   //     });
   // };
 
+  const getDepartment = async (id : String | unknown) => {
+    fetch(`${apiUrl}/department/symptom/${id}`, requestOptions)
+      .then((response) => response.json())
+      .then((res) => {
+        booking.DepartmentID = res.data.ID
+        console.log(booking.DepartmentID);
+        if (res.data) {
+            setDepartments(res.data);
+        } else {
+          console.log("else");
+        }
+      });
+  };
+
   useEffect(() => {
     getUsers();
-    getDepartment();
+    // getDepartment();
     getSymptom();
   }, []);
 
@@ -268,15 +268,18 @@ function BookingCreate() {
               <p>เลือกอาการป่วย</p>
               <Select
                 native
+                labelId="SymptomID"
+                id="SymptomID"
+                label="อาการเพิ่มเติม"
+                placeholder=""
                 value={booking.SymptomID + ""}
                 onChange={handleChange}
                 inputProps={{
                   name: "SymptomID",
                 }}
               >
-                {/* <option aria-label="None" value="">
-                  กรุณาเลือกเลือกอาการป่วย
-                </option> */}
+                <option aria-label="None" value="">
+                </option>
                 {symptoms.map((item: SymptomInterface) => (
                   <option value={item.ID} key={item.ID}>
                     {item.SymptomName}
@@ -286,7 +289,7 @@ function BookingCreate() {
             </FormControl>
           </Grid>
 
-          <Grid item xs={6}>
+          {/* <Grid item xs={6}>
             <FormControl fullWidth variant="outlined">
               <p>เลือกแผนกทางการแพทย์</p>
               <Select
@@ -306,28 +309,24 @@ function BookingCreate() {
                 ))}
               </Select>
             </FormControl>
-          </Grid>
+          </Grid> */}
 
-          {/* <Grid item xs={6}>
+          <Grid item xs={6}>
                 <FormControl fullWidth variant="outlined">
-                <InputLabel id="DepartmentID">เลือกแผนกทางการแพทย์</InputLabel>
+                  <p>แผนกทางการแพทย์</p>
                 <Select
                     native
                     labelId="SymptomID"
                     value={booking.DepartmentID + ""}
-                    // label="เลือกแผนกทางการแพทย์"
                     onChange={handleChange}
-                    // inputProps={{
-                    // name: "DepartmentID",
-                    // }}
-                    renderValue={(value) =>`${value}`}
+                    
                 >
                     <option value={departments?.ID} key={departments?.ID}>
                     {departments?.Name}
                     </option>
                 </Select>
                 </FormControl>
-            </Grid> */}
+            </Grid>
           
           <Grid item xs={6}>
             <FormControl fullWidth variant="outlined">

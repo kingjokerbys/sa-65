@@ -27,7 +27,6 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
 
 
 function UserCreate() {
- const [date, setDate] = React.useState<Date | null>(null);
  const [user, setUser] = React.useState<Partial<UserInterface>>({});
 
  const [success, setSuccess] = React.useState(false);

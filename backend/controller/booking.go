@@ -30,10 +30,10 @@ func CreateBooking(c *gin.Context) {
 	
 
 	// 10: ค้นหา department ด้วย id
-	if tx := entity.DB().Where("id = ?", booking.DepartmentID).First(&department); tx.RowsAffected == 0 {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "department not found"})
-		return
-	}
+	// if tx := entity.DB().Where("id = ?", booking.DepartmentID).First(&department); tx.RowsAffected == 0 {
+	// 	c.JSON(http.StatusBadRequest, gin.H{"error": "department not found"})
+	// 	return
+	// }
 
 	// 11: ค้นหา symptom ด้วย id
 	if tx := entity.DB().Where("id = ?", booking.SymptomID).First(&symptom); tx.RowsAffected == 0 {
@@ -68,7 +68,7 @@ func CreateBooking(c *gin.Context) {
 func GetBooking(c *gin.Context) {
 	var booking entity.Booking
 	id := c.Param("id")
-	if err := entity.DB().Preload("User").Preload("Department").Preload("Symptom").Raw("SELECT * FROM bookings WHERE id = ?", id).Find(&booking).Error; err != nil {
+	if err := entity.DB().Preload("User").Preload("Department").Preload("Symptom").Preload("Symptom.Department").Raw("SELECT * FROM bookings WHERE id = ?", id).Find(&booking).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
@@ -78,7 +78,7 @@ func GetBooking(c *gin.Context) {
 // GET /bookings
 func ListBookings(c *gin.Context) {
 	var bookings []entity.Booking
-	if err := entity.DB().Preload("User").Preload("Department").Preload("Symptom").Raw("SELECT * FROM bookings").Find(&bookings).Error; err != nil {
+	if err := entity.DB().Preload("User").Preload("Department").Preload("Symptom").Preload("Symptom.Department").Raw("SELECT * FROM bookings").Find(&bookings).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}

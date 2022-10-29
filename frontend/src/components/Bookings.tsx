@@ -101,8 +101,8 @@ function Bookings() {
                 <TableCell align="center">{item.ID}</TableCell>
                   <TableCell align="center">{item.User.Name}</TableCell>
                   <TableCell align="center">{item.User.Tel}</TableCell>
-                  <TableCell align="center">{item.Department.Name}</TableCell>
                   <TableCell align="center">{item.Symptom.SymptomName}</TableCell>
+                  <TableCell align="center">{item.Symptom.Department.Name}</TableCell>
                   <TableCell align="center">{item.Detail}</TableCell>
                 <TableCell align="center">{moment(item.BookingTime).format('dd MMMM yyyy hh:mm')}</TableCell>
                 {/* <TableCell align="center">{format((new Date(item.BookingTime)), 'dd MMMM yyyy hh:mm')}</TableCell> */}

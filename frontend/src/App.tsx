@@ -116,8 +116,8 @@ const menu = [
   { name: "สมาชิก", icon: <PeopleIcon />, path: "/user/create", role: 'user' },
   { name: "ข้อมูลผู้ป่วย", icon: <FolderSharedIcon />, path: "/patients", role: 'user' },
   { name: "ข้อมูลผู้ป่วย", icon: <FolderSharedIcon />, path: "/patients", role: 'admin' },
-  { name: "บันทึกอาการ", icon: <AddBoxIcon />, path: "/symptoms" , role: 'doctor'},
-  { name: "ตารางการทำงานแพทย์", icon: <PendingActionsIcon />, path: "/schedules" , role: 'admin'},        /*/////********* */
+  { name: "บันทึกอาการ", icon: <AddBoxIcon />, path: "/symptoms" , role: 'admin'},
+  { name: "ตารางการทำงานแพทย์", icon: <PendingActionsIcon />, path: "/schedules" , role: 'admin'},       
   { name: "ข้อมูลแพทย์", icon: <AccountCircleIcon />, path: "/doctorforuser", role: 'user' },
   // { name: "ข้อมูลแพทย์", icon: <AccountCircleIcon />, path: "/doctorforuser", role: 'admin' },
   { name: "บันทึกข้อมูลแพทย์", icon: <ManageAccountsIcon />, path: "/doctors", role : 'admin' },
