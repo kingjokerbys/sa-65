@@ -1,4 +1,4 @@
-module github.com/jacker1342/sa-65-example
+module github.com/kingjokerbys/sa-65-exampled
 
 go 1.19
 

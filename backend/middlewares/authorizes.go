@@ -5,7 +5,7 @@ import (
 	"strings"
 
 	"github.com/gin-gonic/gin"
-	"github.com/jacker1342/sa-65-example/service"
+	"github.com/kingjokerbys/sa-65-exampled/service"
 )
 
 // validates token

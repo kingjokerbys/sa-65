@@ -5,7 +5,7 @@ import (
 
 	"github.com/asaskevich/govalidator"
 	"github.com/gin-gonic/gin"
-	"github.com/jacker1342/sa-65-example/entity"
+	"github.com/kingjokerbys/sa-65-exampled/entity"
 	"golang.org/x/crypto/bcrypt"
 )
 
@@ -15,8 +15,8 @@ func CreateUser(c *gin.Context) {
 	var user entity.User
 	if err := c.ShouldBindJSON(&user); err != nil {
 
-		   c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		   return
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
 	}
 
 	bytes, err := bcrypt.GenerateFromPassword([]byte(user.Password), 14)
@@ -33,9 +33,9 @@ func CreateUser(c *gin.Context) {
 	}
 	if err := entity.DB().Create(&user).Error; err != nil {
 
-		   c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 
-		   return
+		return
 	}
 	c.JSON(http.StatusOK, gin.H{"data": user})
 }
@@ -47,8 +47,8 @@ func GetUser(c *gin.Context) {
 	var user entity.User
 	id := c.Param("id")
 	if err := entity.DB().Raw("SELECT * FROM users WHERE id = ?", id).Scan(&user).Error; err != nil {
-		   c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		   return
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
 	}
 	c.JSON(http.StatusOK, gin.H{"data": user})
 
@@ -62,13 +62,11 @@ func ListUsers(c *gin.Context) {
 
 	if err := entity.DB().Raw("SELECT * FROM users").Scan(&users).Error; err != nil {
 
-		   c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 
-		   return
+		return
 
 	}
-
-
 
 	c.JSON(http.StatusOK, gin.H{"data": users})
 
@@ -82,9 +80,9 @@ func DeleteUser(c *gin.Context) {
 
 	if tx := entity.DB().Exec("DELETE FROM users WHERE id = ?", id); tx.RowsAffected == 0 {
 
-		   c.JSON(http.StatusBadRequest, gin.H{"error": "user not found"})
+		c.JSON(http.StatusBadRequest, gin.H{"error": "user not found"})
 
-		   return
+		return
 
 	}
 
@@ -98,16 +96,16 @@ func UpdateUser(c *gin.Context) {
 
 	var user entity.User
 	if err := c.ShouldBindJSON(&user); err != nil {
-		   c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		   return
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
 	}
 	if tx := entity.DB().Where("id = ?", user.ID).First(&user); tx.RowsAffected == 0 {
-		   c.JSON(http.StatusBadRequest, gin.H{"error": "user not found"})
-		   return
+		c.JSON(http.StatusBadRequest, gin.H{"error": "user not found"})
+		return
 	}
 	if err := entity.DB().Save(&user).Error; err != nil {
-		   c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		   return
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
 	}
 	c.JSON(http.StatusOK, gin.H{"data": user})
 }

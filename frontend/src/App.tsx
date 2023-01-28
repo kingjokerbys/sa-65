@@ -31,28 +31,11 @@ import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 
 
 import Home from "./components/Home";
-import Users from "./components/Users";
-import UserCreate from "./components/UserCreate";
+import Repairs from "./components/Repair";
+import RepairCreate from "./components/RepairCreate";
+import Emergencys from "./components/Emergency";
+import EmergencyCreate from "./components/EmergencyCreate";
 
-import Bookings from "./components/Bookings";
-import BookingCreate from "./components/BookingCreate";
-
-import Patient from "./components/Patient";
-import PatientCreate from "./components/PatientCreate";
-
-import Symptom from "./components/Symptom";
-import SymptomCreate from "./components/SymptomCreate";
-
-import Schedules from "./components/Schedule";
-import ScheduleCreate from "./components/ScheduleCreate";
-
-import Doctors from "./components/Doctors"
-import DoctorCreate from "./components/DoctorCreate";
-// import DocCreate from "./components/DocCreate";
-import DoctorForUser from "./components/DoctorForUser";
-
-import Appointments from "./components/Appointment";
-import AppointmentCreate from "./components/AppointmentCreate";
 
 import SignIn from "./components/SignIn";
 
@@ -112,17 +95,10 @@ const mdTheme = createTheme();
 const menu = [
   { name: "หน้าแรก", icon: <HomeIcon />, path: "/", role : 'user'},
   { name: "หน้าแรก", icon: <HomeIcon />, path: "/", role : 'admin'},
-  { name: "การจองคิว", icon: <AddToQueueIcon />, path: "/bookings", role: 'user'},
-  { name: "สมาชิก", icon: <PeopleIcon />, path: "/user/create", role: 'user' },
-  { name: "ข้อมูลผู้ป่วย", icon: <FolderSharedIcon />, path: "/patients", role: 'user' },
-  { name: "ข้อมูลผู้ป่วย", icon: <FolderSharedIcon />, path: "/patients", role: 'admin' },
-  { name: "บันทึกอาการ", icon: <AddBoxIcon />, path: "/symptoms" , role: 'admin'},
-  { name: "ตารางการทำงานแพทย์", icon: <PendingActionsIcon />, path: "/schedules" , role: 'admin'},       
-  { name: "ข้อมูลแพทย์", icon: <AccountCircleIcon />, path: "/doctorforuser", role: 'user' },
-  // { name: "ข้อมูลแพทย์", icon: <AccountCircleIcon />, path: "/doctorforuser", role: 'admin' },
-  { name: "บันทึกข้อมูลแพทย์", icon: <ManageAccountsIcon />, path: "/doctors", role : 'admin' },
-  { name: "การนัดหมายสถานที่", icon: <AddLocationAltIcon />, path: "/appointments", role : 'admin' },
-
+  { name: "การแจ้งซ่อม", icon: <AddToQueueIcon />, path: "/repairs", role: 'user'},
+  { name: "การแจ้งเหตุฉุกเฉิน", icon: <AddToQueueIcon />, path: "/emergencies", role: 'user'},
+  
+  
 
 
 ];
@@ -241,21 +217,11 @@ function App() {
             <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
               <Routes>
                 <Route path="/" element={<Home />} />
-                <Route path="/users" element={<Users />} />
-                <Route path="/user/create" element={<UserCreate />} />
-                <Route path="/patients" element={<Patient />} />
-                <Route path="/patient/create" element={<PatientCreate />} />
-                <Route path="/bookings" element={<Bookings />} />
-                <Route path="/booking/create" element={<BookingCreate />} />
-                <Route path="/symptom/create" element={<SymptomCreate />} />
-                <Route path="/symptoms" element={<Symptom />} />
-                <Route path="/schedules" element={<Schedules />} />
-                <Route path="/schedule/create" element={<ScheduleCreate />} />
-                <Route path="/doctorforuser" element={<DoctorForUser />} />
-                <Route path="/doctors" element={<Doctors />} />
-                <Route path="/doctor/create" element={<DoctorCreate />} />
-                <Route path="/appointments" element={<Appointments />} />
-                <Route path="/appointment/create" element={<AppointmentCreate />} />
+                <Route path="/repairs" element={<Repairs />} />
+                <Route path="/repair/create" element={<RepairCreate />} />  
+                <Route path="/emergencies" element={<Emergencys />} />
+                <Route path="/emergencie/create" element={<EmergencyCreate />} />
+                
 
               </Routes>
             </Container>
